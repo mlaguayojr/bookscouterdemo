@@ -13,7 +13,7 @@ def main(options):
     
     # The site has three options: sell, buy, rent
     # After looking at how the page functions:
-    url = "https://api.bookscouter.com/v3/search?term=%s" % (options[0])
+    url = "https://api.bookscouter.com/v3/prices/buy/%s" % (options[0])
 
     req = urlopen(url)
     
@@ -26,9 +26,12 @@ def main(options):
     # Continue if the request went through
     data = loads( req.read() )
 
-    # The response is a dictionary with an index as an array
-    data = data['data'][0]
-    print(data)
+    # The response is a dictionary
+    data = data['data']['Prices']
+
+    for item in data:
+        print(item)
+        print("------")
 
 if __name__=="__main__":
 
